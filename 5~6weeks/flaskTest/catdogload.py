@@ -4,7 +4,7 @@ from keras.models import load_model
 pilImg = image.load_img('./image/dog/dog2.jpg', target_size=(200, 200))
 imgArr = image.img_to_array(pilImg)/255
 print(imgArr)
-model = load_model('catdog.h5')
+model = load_model('./models/catdog.h5')
 # print( model.summary() )
 
 

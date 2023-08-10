@@ -49,5 +49,30 @@ def hapresult():
 def imageselect():
     return render_template('imgselect.html')
 
+@app.route('/health_check')
+def health_check():
+    return render_template('health_check.html')
+
+@app.route('/health_result')
+def health_result():
+    height = request.args['height']
+    weight = request.args['weight']
+    avg_weight = int(height) - 100 * 0.85
+    obesity = int(weight)/avg_weight * 100
+    
+    obesity_result = "normal"
+    health_img_loc = "./static/image/norm.jpeg"
+    if(obesity <= 90):
+        obesity_result = "underweight"
+        health_img_loc = "./static/image/good.jpeg"
+    elif(obesity > 110 and obesity <=120):
+        obesity_result = "overweight"
+        health_img_loc = "./static/image/fat.jpeg"
+    elif(obesity >= 120):
+        obesity_result = "you are fat"
+        health_img_loc = "./static/image/fat.jpeg"
+      
+    return render_template('health_result.html', height=height, weight=weight, result=obesity_result, img_loc=health_img_loc)
+
 if __name__ == '__main__':
     app.run( host='0.0.0.0', port =4500, debug=True)
